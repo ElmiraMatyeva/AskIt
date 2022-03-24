@@ -14,35 +14,28 @@
 
   <hr class="my-3">
 
-  <h3>Write your answer</h3>
+  <h2>Write your answer</h2>
 
-  <%= render 'shared/errors', object: @answer %>
-
-  <%= form_with model: [@question, @answer] do |f| %>
-    <div class="mb-3 row">
-      <div class="col-sm-2 col-form-label">
-        <%= f.label :body %>
-      </div>
-      <div class="col-sm-10">
-        <%= f.text_area :body, class: 'form-control' %>
-      </div>
-    </div>
-
-    <%= f.submit "Submit answer!", class: 'btn btn-primary' %>
-  <% end %>
+  <%= render 'answers/form' %>      
 
   <h3 class="mt-5">All answers</h3>
 
   <% @answers.each do |answer| %>
-    <article class="mb-3">
-      <time datetime="<%= answer.formatted_created_at%>">
-        Created: <%= answer.formatted_created_at %>
-      </time>
-      <p><%= answer.body %></p>
+    <article class="mb-3 card">
+      <div class="card-body">
+          <section class="card-text">
+            <small>
+              <time datetime="<%= answer.formatted_created_at%>">
+                Created: <%= answer.formatted_created_at %>
+              </time>
+            </small>
+            <p class="mt-2 mb-3"><%= answer.body %></p>
+          </section>
 
-      <%= link_to 'Edit', edit_question_answer_path(@question, answer), class: 'btn btn-secondary btn-sm'%>
+      <%= link_to 'Edit', edit_question_answer_path(@question, answer), class: 'btn btn-info btn-sm'%>
       <%= link_to 'Delete', question_answer_path(@question, answer), class: 'btn btn-danger btn-sm', data: {method: :delete, confirm: "Are you sure?"} %>
       <hr class="my-3">
+      </div>
     </article>
   <% end %>
 
