@@ -1,10 +1,13 @@
-<h1><%= @question.title %></h1>
+<h1 class="mb-4"><%= @question.title %></h1>
 <p>
   <time datetime="<%= @question.formatted_created_at%>">
     Created: <%= @question.formatted_created_at %>
   </time>
-  <br>
-  <div>
-    <h3><%= @question.body %></h3>
-  </div>
-</p>
+  
+  <p class="lead my-3">
+    <%= @question.body %>
+  </p>
+
+  <%= link_to 'Show', question_path(@question), class: 'btn btn-primary' %> 
+  <%= link_to 'Edit', edit_question_path(@question), class: 'btn btn-secondary' %> 
+  <%= link_to 'Delete', question_path(@question), class: 'btn btn-danger', data: {method: :delete, confirm: 'Are you sure you want to delete this question?'} %>
