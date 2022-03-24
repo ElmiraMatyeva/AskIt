@@ -10,6 +10,17 @@
   </head>
 
   <body>
-    <%= yield %>
+    <nav>
+      <ul>
+        <%= link_to 'Home', root_path %> | 
+        <%= link_to 'Questions', questions_path %>
+      </ul>
+    </nav>
+    <main>
+      <%= yield %>
+    </main>
+    <div>
+      &copy;elmiramatyeva <%= Time.now.year%>
+    </div> 
   </body>
 </html>
