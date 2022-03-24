@@ -2,12 +2,12 @@ class QuestionsController < ApplicationController
   before_action :set_question!, only: %i[show destroy edit update]
 
   def index
-    @questions = Question.all
+    @questions = Question.order(created_at: :desc).page params[:page]
   end
 
   def show 
     @answer = @question.answers.build
-    @answers = @question.answers.order created_at: :desc
+    @answers = @question.answers.order(created_at: :desc).page(params[:page])
     # Answer.where(question: @question).order created_at: :desc
   end
 
@@ -17,6 +17,7 @@ class QuestionsController < ApplicationController
   
   def create
     @question = Question.new question_params
+
     if @question.save
       flash[:success] = "Question successfully created!"
       redirect_to questions_path
