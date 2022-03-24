@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
   def show 
     @answer = @question.answers.build
     @answers = @question.answers.order created_at: :desc
-    #Answer.where(question: @question).order created_at: :desc
+    # Answer.where(question: @question).order created_at: :desc
   end
 
   def new
@@ -16,11 +16,12 @@ class QuestionsController < ApplicationController
   end
   
   def create
-    if @question.save 
+    @question = Question.new question_params
+    if @question.save
       flash[:success] = "Question successfully created!"
       redirect_to questions_path
     else
-      render :new  
+      render "smth's wrong"
     end
   end
 
