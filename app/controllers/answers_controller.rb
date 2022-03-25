@@ -9,7 +9,7 @@ class AnswersController < ApplicationController
       flash[:success] = "Answer created!"
       redirect_to question_path(@question)
     else
-      @answers = @question.answers.order created_at: :desc
+      @answers = pagy @question.answers.order created_at: :desc
       render 'questions/show'
     end
   end

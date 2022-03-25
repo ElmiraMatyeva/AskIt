@@ -2,12 +2,12 @@ class QuestionsController < ApplicationController
   before_action :set_question!, only: %i[show destroy edit update]
 
   def index
-    @questions = Question.order(created_at: :desc).page params[:page]
+    @pagy, @questions = pagy Question.order(created_at: :desc)
   end
 
   def show 
     @answer = @question.answers.build
-    @answers = @question.answers.order(created_at: :desc).page(params[:page])
+    @pagy, @answers =pagy @question.answers.order(created_at: :desc)
     # Answer.where(question: @question).order created_at: :desc
   end
 
