@@ -21,12 +21,11 @@
 
   <%= render 'answers/form' %>      
 
-  <h3 class="mt-5">All answers</h3>
-  <%== pagy_bootstrap_nav @pagy %>
+  <h3 class="mt-5 mb-3">All answers</h3>
+  <%== pagy_bootstrap_nav @pagy  if @pagy.pages > 1 %>
 
   <%= render partial: 'answers/answer', collection: @answers, as: :answer, locals: {question: @question} %> 
 
-  <%== pagy_bootstrap_nav @pagy %>
-
+  <%== pagy_bootstrap_nav @pagy  if @pagy.pages > 1 %>
 
     
