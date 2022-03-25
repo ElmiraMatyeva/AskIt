@@ -18,6 +18,7 @@ module Authentication
 
     def require_no_authentication
       return unless user_signed_in?
+      
         flash[:warning] = "You are already signed in"
         redirect_to root_path 
     end  
