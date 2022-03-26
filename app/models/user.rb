@@ -1,21 +1,25 @@
 class User < ApplicationRecord
   attr_accessor :old_password
-    # чтобы создать виртуальный атрибут для юзера (он не будет попадать в базу данных, 
-    # а просто на объекте User будет сущ-ть этот атрибут), с его помощью мы будем 
-    # отрисовывать поле для ввода старого пароля
+    # чтобы создать виртуальный атрибут для юзера (он не будет попадать в базу данных, а будет сущ-ть просто на объекте User), 
+    # с его помощью мы будем отрисовывать поле для ввода старого пароля
   
-    # отменяем валидации от гема bcrypt, чтобы прописать необходимые валидации самостоятельно  
+    # отменяем валидации от гема bcrypt, чтобы прописать необходимые 
+    # валидации самостоятельно  
   has_secure_password validations: false
   validate  :password_presence
   validate  :password_complexity
-  validate  :correct_old_password, on: :update
+
+    # лямбда здесь означает, что эту валидацию надо запускать, только если 
+    # юзер ввел новый пароль. Если новый пароль не был указан (т.е. юзер меняет 
+    # другие поля, а пароль менять не хочет), то валидацию игнорируем
+  validate  :correct_old_password, on: :update, if: -> { password.present? }
 
   validates :password, confirmation: true, allow_blank: true
     # allow_blank: true означает, что при обновлении профиля юзер может не захотеть 
     # вводить пароль снова (то есть, мы разрешаем оставить поле пароля пустым)
 
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, 'valid_email2/email': true
   
   private 
 
